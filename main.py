@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 desktop_path = Path(os.path.expanduser("~")) / "OneDrive/Skrivebord"
+files_folder = desktop_path / "files"
 
 def list_desktop_files():
     if os.path.exists(desktop_path):
@@ -13,14 +14,14 @@ def list_desktop_files():
 def move_files():
     files = list_desktop_files()
 
-    for file in files:
-        extension = Path(file).suffix
-        print(extension)
-        folder = desktop_path / "files"
+    if not files_folder.exists():
+        files_folder.mkdir()
 
-        if not folder.exists():
-            folder.mkdir()
-        (desktop_path / file).rename(folder / file)
+    for file in files:
+        file_path = desktop_path / file
+        if file_path.is_file():
+            file_path.rename(files_folder / file)
+
 
 if __name__ == "__main__":
     move_files()
