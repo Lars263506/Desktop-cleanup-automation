@@ -16,7 +16,7 @@ def move_files():
     for file in files:
         extension = Path(file).suffix
         print(extension)
-        folder = desktop_path / extension
+        folder = desktop_path / "files"
 
         if not folder.exists():
             folder.mkdir()
